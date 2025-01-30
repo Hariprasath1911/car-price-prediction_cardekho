@@ -90,7 +90,7 @@ with tab2:
     a4,a5,a6=st.columns(3)
     a7,a8,a9=st.columns(3)
     a10,a11,a12=st.columns(3)
-    a13,a14=st.columns(3)
+    a13,a14=st.columns(2)
     
     with a1:
         car_city = ml_df["city"].unique().tolist()
