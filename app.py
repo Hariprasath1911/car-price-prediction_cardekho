@@ -34,7 +34,7 @@ set_background_image_local(r"12.png")
 
 model=load_model("model_car.pkl")
 encoder=load_model("ordinal_encoder.pkl")
-
+ml_df=pd.read_excel("extracted_car_details.xlsx")
 st.title("Car Price Prediction App")
 
 tab1, tab2 = st.tabs(["Home", "Predict"])
@@ -92,58 +92,50 @@ with tab2:
     a13,a14=st.columns(2)
     
     with a1:
-        ml_df=pd.read_excel("extracted_car_details.xlsx")
         car_city = ml_df["city"].unique().tolist()
         encoder.fit(np.array(car_city).reshape(-1, 1))
         city_select=st.selectbox("Select City",car_city)
         city = encoder.transform([[city_select]])[0][0]
     with a2:
-        ml_df=pd.read_excel("extracted_car_details.xlsx")
         car_ft = ml_df["ft"].unique().tolist()
         encoder.fit(np.array(car_ft).reshape(-1, 1))
         ft_select=st.selectbox("Select fuel Type",car_ft)
         ft=encoder.transform([[ft_select]])[0][0]
     with a3:
-        ml_df=pd.read_excel("extracted_car_details.xlsx")
-        car_bt=ml_dl["bt"].unique().tolist()
+        car_bt=ml_df["bt"].unique().tolist()
         encoder.fit(np.array(car_bt).reshape(-1, 1))
         bt_select=st.selectbox("Select Body Type",car_bt)
         bt=encoder.transform([[bt_select]])[0][0]
     with a4:
         km=st.number_input("Enter KM driven",min_value=10)
     with a5:
-        ml_df=pd.read_excel("extracted_car_details.xlsx")
-        car_transmission=ml_dl["transmission"].unique().tolist()
+        car_transmission=ml_df["transmission"].unique().tolist()
         encoder.fit(np.array(car_transmission).reshape(-1, 1))
         transmission_select=st.selectbox("Select Body Type",car_transmission)
         transmission=encoder.transform([[transmission_select]])[0][0]
     with a6:
         ownerNo=st.number_input("Enter no. of Owner's",min_value=1)
     with a7:
-        ml_df=pd.read_excel("extracted_car_details.xlsx")
-        car_oem=ml_dl["oem"].unique().tolist()
+        car_oem=ml_df["oem"].unique().tolist()
         encoder.fit(np.array(car_oem).reshape(-1, 1))
         oem_select=st.selectbox("Select car manufacture name",car_oem)
         oem=encoder.transform([[oem_select]])[0][0]
     with a8:
-        ml_df=pd.read_excel("extracted_car_details.xlsx")
-        car_model=ml_dl["model"].unique().tolist()
+        car_model=ml_df["model"].unique().tolist()
         encoder.fit(np.array(car_model).reshape(-1, 1))
         model_select=st.selectbox("Select car Model name",car_model)
         model=encoder.transform([[model_select]])[0][0]
     with a9:
         modelYear=st.number_input("Enter car manufacture year",min_value=1000)
     with a10:
-        ml_df=pd.read_excel("extracted_car_details.xlsx")
-        car_variantName=ml_dl["variantName"].unique().tolist()
+        car_variantName=ml_df["variantName"].unique().tolist()
         encoder.fit(np.array(car_variantName).reshape(-1, 1))
         variantName_select=st.selectbox("Select Model variant Name",car_variantName)
         variantName=encoder.transform([[variantName_select]])[0][0]
     with a11:
         Registration_Year=st.number_input("Enter car registration year",min_value=1000)
     with a12:
-        ml_df=pd.read_excel("extracted_car_details.xlsx")
-        car_InsuranceValidity=ml_dl["Insurance Validity"].unique().tolist()
+        car_InsuranceValidity=ml_df["Insurance Validity"].unique().tolist()
         encoder.fit(np.array(car_InsuranceValidity).reshape(-1, 1))
         InsuranceValidity_select=st.selectbox("Select Insurance Type",car_InsuranceValidity)
         InsuranceValidity=encoder.transform([[InsuranceValidity_select]])[0][0]
