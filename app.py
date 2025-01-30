@@ -2,6 +2,7 @@ import streamlit as st
 import pickle
 import pandas as pd
 import base64
+from sklearn.preprocessing import OrdinalEncoder
 
 @st.cache_resource
 # Load models
