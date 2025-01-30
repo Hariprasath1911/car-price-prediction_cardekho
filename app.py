@@ -2,8 +2,6 @@ import streamlit as st
 import pickle
 import pandas as pd
 import base64
-from sklearn.ensemble import RandomForestRegressor
-
 
 @st.cache_resource
 # Load models
@@ -30,10 +28,10 @@ def set_background_image_local(image_path):
         unsafe_allow_html=True
     )
 
-set_background_image_local("C:/Users/DINESH/Desktop/Data for DS/vscode/car/12.png")
+set_background_image_local(r"12.png")
 
-model=load_model("C:/Users/DINESH/Desktop/Data for DS/vscode/car/model_car.pkl")
-encoder=load_model("C:/Users/DINESH/Desktop/Data for DS/vscode/car/ordinal_encoder.pkl")
+model=load_model("model_car.pkl")
+encoder=load_model("ordinal_encoder.pkl")
 
 ml_df=pd.read_excel("extracted_car_details.xlsx")
 
