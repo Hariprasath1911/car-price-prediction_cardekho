@@ -140,12 +140,20 @@ with tab2:
         EngineDisplacement=st.number_input("Enter Engine CC",min_value=1)
         
 if st.button('Predict'):
-    data={
-        "city":city,"ft":ft,"bt":bt,"km":km,"transmission":transmission,"ownerNo":ownerNo,"oem":oem,"model":model,"modelYear":modelYear,
-        "variantName":variantName,"Registration Year":Registration_Year,"Insurance Validity":InsuranceValidity,"Seats":Seats,
-        "Engine Displacement":EngineDisplacement
+    if None in [city, ft, bt, transmission, oem, model, variantName, InsuranceValidity]:
+        st.warning("⚠️ Please fill in all required fields before predicting.")
+    else:
+        data = {
+            "city": city, "ft": ft, "bt": bt, "km": km,
+            "transmission": transmission, "ownerNo": ownerNo, "oem": oem,
+            "model": model, "modelYear": modelYear, "variantName": variantName,
+            "Registration Year": Registration_Year, "Insurance Validity": InsuranceValidity,
+            "Seats": int(Seats) if Seats else 5,
+            "Engine Displacement": float(EngineDisplacement) if EngineDisplacement else 799
         }
-    input_data = pd.DataFrame([data])
-    prediction = model.predict(input_data)
-    st.subheader("Predicted car Price")
-    st.write(f"₹ {prediction[0]:,.2f}")
+
+        input_data = pd.DataFrame([data])
+        prediction = model.predict(input_data)
+        
+        st.subheader("Predicted Car Price")
+        st.write(f"₹ {prediction[0]:,.2f}")
