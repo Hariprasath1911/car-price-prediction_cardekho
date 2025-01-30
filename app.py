@@ -95,7 +95,7 @@ with tab2:
     
     with a1:
         car_city = ml_df["city"].unique().tolist()
-        encoder.fit(car_city)
+        encoder.fit(ml_df["city"].unique())
         city_select=st.selectbox("Select City",car_city)
         city = encoder.transform([[city_select]])[0][0]
     with a2:
