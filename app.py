@@ -141,10 +141,9 @@ with tab2:
             "Engine Displacement": EngineDisplacement
         }])
         categorical_cols=["city_select","ft_select","bt_select","transmission_select","oem_select","model_select","variantName_select","insurance_validity_select"]
-        input_data[categorical_cols] = encoder.fit_transform(input_data[categorical_cols])
+        input_data[categorical_cols] = encoder.transform(input_data[categorical_cols])
         a=["km","ownerNo","modelYear","price","Registration Year","Seats","Engine Displacement"]
-        for i in a:
-            input_data[i]=np.cos(input_data[i])
+        input_data[a]=np.cos(input_data[a])
         prediction = model.predict(input_data)
         
         st.subheader("Predicted Car Price")
