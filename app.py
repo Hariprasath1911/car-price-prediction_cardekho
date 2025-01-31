@@ -135,10 +135,10 @@ with tab2:
             "model": model_select,
             "modelYear": modelYear,
             "variantName": variantName_select,
-            "Registration Year": registration_year,
+            "Registration Year": Registration_Year,
             "Insurance Validity": insurance_validity_select,
-            "Seats": seats,
-            "Engine Displacement": engine_displacement
+            "Seats": Seats,
+            "Engine Displacement": EngineDisplacement
         }])
         categorical_cols=["city_select","ft_select","bt_select","transmission_select","oem_select","model_select","variantName_select","insurance_validity_select"]
         input_data[categorical_cols] = encoder.fit_transform(input_data[categorical_cols])
