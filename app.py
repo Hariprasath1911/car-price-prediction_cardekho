@@ -124,32 +124,24 @@ with tab2:
         EngineDisplacement=st.number_input("Enter Engine CC",min_value=1)
         
     if st.button('Predict'):
-        encoded_inputs = {
-            "city": encoder.transform([[city_select]])[0][0],
-            "ft": encoder.transform([[ft_select]])[0][0],
-            "bt": encoder.transform([[bt_select]])[0][0],
-            "transmission": encoder.transform([[transmission_select]])[0][0],
-            "oem": encoder.transform([[oem_select]])[0][0],
-            "model": encoder.transform([[model_select]])[0][0],
-            "variantName": encoder.transform([[variantName_select]])[0][0],
-            "Insurance Validity": encoder.transform([[insurance_validity_select]])[0][0]
-        }
         input_data = pd.DataFrame([{
-            "city": encoded_inputs["city"],
-            "ft": encoded_inputs["ft"],
-            "bt": encoded_inputs["bt"],
+            "city": city_select,
+            "ft": ft_select,
+            "bt": bt_select,
             "km": km,
-            "transmission": encoded_inputs["transmission"],
+            "transmission": transmission_select,
             "ownerNo": ownerNo,
-            "oem": encoded_inputs["oem"],
-            "model": encoded_inputs["model"],
+            "oem": oem_select,
+            "model": model_select,
             "modelYear": modelYear,
-            "variantName": encoded_inputs["variantName"],
+            "variantName": variantName_select,
             "Registration Year": registration_year,
-            "Insurance Validity": encoded_inputs["Insurance Validity"],
+            "Insurance Validity": insurance_validity_select,
             "Seats": seats,
             "Engine Displacement": engine_displacement
         }])
+        categorical_cols=["city_select","ft_select","bt_select","transmission_select","oem_select","model_select","variantName_select","insurance_validity_select"]
+        input_data[categorical_cols] = encoder.fit_transform(input_data[categorical_cols])
         a=["km","ownerNo","modelYear","price","Registration Year","Seats","Engine Displacement"]
         for i in a:
             input_data[i]=np.cos(input_data[i])
