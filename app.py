@@ -38,7 +38,6 @@ ml_df=pd.read_excel("extracted_car_details.xlsx")
 st.title("Car Price Prediction App")
 
 categorical_features = ["city", "ft", "bt", "transmission", "oem", "model", "variantName", "Insurance Validity"]
-encoder.fit(ml_df[categorical_features])
 dropdown_options = {feature: ml_df[feature].unique().tolist() for feature in categorical_features}
 
 tab1, tab2 = st.tabs(["Home", "Predict"])
