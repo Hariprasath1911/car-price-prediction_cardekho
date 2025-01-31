@@ -136,7 +136,7 @@ with tab2:
             "modelYear": modelYear,
             "variantName": variantName_select,
             "Registration Year": Registration_Year,
-            "Insurance Validity": insurance_validity_select,
+            "Insurance Validity": InsuranceValidity_select,
             "Seats": Seats,
             "Engine Displacement": EngineDisplacement
         }])
