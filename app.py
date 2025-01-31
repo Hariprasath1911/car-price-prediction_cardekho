@@ -137,10 +137,8 @@ with tab2:
     with a14:
         EngineDisplacement=st.number_input("Enter Engine CC",min_value=1)
         
-if st.button('Predict'):
-    if None in [city, ft, bt, transmission, oem, model, variantName, InsuranceValidity]:
-        st.warning("⚠️ Please fill in all required fields before predicting.")
-    else:
+    if st.button('Predict'):
+    
         city = encoder.transform([[city_select]])[0][0]
         ft=encoder.transform([[ft_select]])[0][0]
         bt=encoder.transform([[bt_select]])[0][0]
