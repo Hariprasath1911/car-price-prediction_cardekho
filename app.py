@@ -37,6 +37,23 @@ encoder=load_model("ordinal_encoder.pkl")
 ml_df=pd.read_excel("extracted_car_details.xlsx")
 st.title("Car Price Prediction App")
 
+car_city = ml_df["city"].unique().tolist()
+encoder.fit(np.array(car_city).reshape(-1, 1))
+car_ft = ml_df["ft"].unique().tolist()
+encoder.fit(np.array(car_ft).reshape(-1, 1))
+car_bt=ml_df["bt"].unique().tolist()
+encoder.fit(np.array(car_bt).reshape(-1, 1))
+car_transmission=ml_df["transmission"].unique().tolist()
+encoder.fit(np.array(car_transmission).reshape(-1, 1))
+car_oem=ml_df["oem"].unique().tolist()
+encoder.fit(np.array(car_oem).reshape(-1, 1))
+car_model=ml_df["model"].unique().tolist()
+encoder.fit(np.array(car_model).reshape(-1, 1))
+car_variantName=ml_df["variantName"].unique().tolist()
+encoder.fit(np.array(car_variantName).reshape(-1, 1))
+car_InsuranceValidity=ml_df["Insurance Validity"].unique().tolist()
+encoder.fit(np.array(car_InsuranceValidity).reshape(-1, 1))
+
 tab1, tab2 = st.tabs(["Home", "Predict"])
 with tab1:
     st.markdown("""
@@ -92,53 +109,29 @@ with tab2:
     a13,a14=st.columns(2)
     
     with a1:
-        car_city = ml_df["city"].unique().tolist()
-        encoder.fit(np.array(car_city).reshape(-1, 1))
         city_select=st.selectbox("Select City",car_city)
-        city = encoder.transform([[city_select]])[0][0]
     with a2:
-        car_ft = ml_df["ft"].unique().tolist()
-        encoder.fit(np.array(car_ft).reshape(-1, 1))
         ft_select=st.selectbox("Select fuel Type",car_ft)
-        ft=encoder.transform([[ft_select]])[0][0]
     with a3:
-        car_bt=ml_df["bt"].unique().tolist()
-        encoder.fit(np.array(car_bt).reshape(-1, 1))
         bt_select=st.selectbox("Select Body Type",car_bt)
-        bt=encoder.transform([[bt_select]])[0][0]
     with a4:
         km=st.number_input("Enter KM driven",min_value=10)
     with a5:
-        car_transmission=ml_df["transmission"].unique().tolist()
-        encoder.fit(np.array(car_transmission).reshape(-1, 1))
         transmission_select=st.selectbox("Select Body Type",car_transmission)
-        transmission=encoder.transform([[transmission_select]])[0][0]
     with a6:
         ownerNo=st.number_input("Enter no. of Owner's",min_value=1)
     with a7:
-        car_oem=ml_df["oem"].unique().tolist()
-        encoder.fit(np.array(car_oem).reshape(-1, 1))
         oem_select=st.selectbox("Select car manufacture name",car_oem)
-        oem=encoder.transform([[oem_select]])[0][0]
-    with a8:
-        car_model=ml_df["model"].unique().tolist()
-        encoder.fit(np.array(car_model).reshape(-1, 1))
+    with a8: 
         model_select=st.selectbox("Select car Model name",car_model)
-        model=encoder.transform([[model_select]])[0][0]
     with a9:
         modelYear=st.number_input("Enter car manufacture year",min_value=1000)
     with a10:
-        car_variantName=ml_df["variantName"].unique().tolist()
-        encoder.fit(np.array(car_variantName).reshape(-1, 1))
         variantName_select=st.selectbox("Select Model variant Name",car_variantName)
-        variantName=encoder.transform([[variantName_select]])[0][0]
     with a11:
         Registration_Year=st.number_input("Enter car registration year",min_value=1000)
     with a12:
-        car_InsuranceValidity=ml_df["Insurance Validity"].unique().tolist()
-        encoder.fit(np.array(car_InsuranceValidity).reshape(-1, 1))
         InsuranceValidity_select=st.selectbox("Select Insurance Type",car_InsuranceValidity)
-        InsuranceValidity=encoder.transform([[InsuranceValidity_select]])[0][0]
     with a13:
         Seats=st.number_input("Enter seat capacity",min_value=1)
     with a14:
@@ -148,6 +141,14 @@ if st.button('Predict'):
     if None in [city, ft, bt, transmission, oem, model, variantName, InsuranceValidity]:
         st.warning("⚠️ Please fill in all required fields before predicting.")
     else:
+        city = encoder.transform([[city_select]])[0][0]
+        ft=encoder.transform([[ft_select]])[0][0]
+        bt=encoder.transform([[bt_select]])[0][0]
+        transmission=encoder.transform([[transmission_select]])[0][0]
+        oem=encoder.transform([[oem_select]])[0][0]
+        model=encoder.transform([[model_select]])[0][0]
+        variantName=encoder.transform([[variantName_select]])[0][0]
+        InsuranceValidity=encoder.transform([[InsuranceValidity_select]])[0][0]
         data = {
             "city": city, "ft": ft, "bt": bt, "km": km,
             "transmission": transmission, "ownerNo": ownerNo, "oem": oem,
@@ -158,6 +159,9 @@ if st.button('Predict'):
         }
 
         input_data = pd.DataFrame([data])
+        a=["km","ownerNo","modelYear","price","Registration Year","Seats","Engine Displacement"]
+        for i in a:
+            input_data[i]=np.cos(input_data[i])
         prediction = model.predict(input_data)
         
         st.subheader("Predicted Car Price")
