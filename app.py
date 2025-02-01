@@ -97,7 +97,7 @@ with tab2:
     
     with a1:
         city_select=st.selectbox("Select City",dropdown_options["city"])
-        city=encoder_city.transform(city_select)
+        city=encoder_city.transform([[city_select]])[0][0]
     with a2:
         ft_select=st.selectbox("Select fuel Type",dropdown_options["ft"])
     with a3:
