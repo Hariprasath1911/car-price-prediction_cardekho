@@ -43,7 +43,7 @@ encoder_model=load_model("encoder_ft.pkl")
 encoder_transmission=load_model("encoder_transmission.pkl")
 encoder_variantName=load_model("encoder_variantName.pkl")
 
-ml_df=pd.read_excel("extracted_car_details.xlsx")
+ml_df=pd.read_excel("ml_dl.xlsx")
 st.title("Car Price Prediction App")
 
 categorical_features = ["city", "ft", "bt", "transmission", "oem", "model", "variantName", "Insurance Validity"]
