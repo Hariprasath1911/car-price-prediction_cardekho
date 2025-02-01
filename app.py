@@ -158,7 +158,7 @@ with tab2:
             "Engine Displacement": EngineDisplacement
         }])
 
-        a=["km","ownerNo","modelYear","price","Registration Year","Seats","Engine Displacement"]
+        a=["km","ownerNo","modelYear","Registration Year","Seats","Engine Displacement"]
         input_data[a]=np.cos(input_data[a])
         prediction = model.predict(input_data)
         
