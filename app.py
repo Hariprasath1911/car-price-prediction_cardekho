@@ -34,6 +34,7 @@ set_background_image_local(r"12.png")
 
 model=load_model("model_car.pkl")
 encoder=load_model("ordinal_encoder.pkl")
+encoder_city=load_model("encoder_city.pkl")
 ml_df=pd.read_excel("extracted_car_details.xlsx")
 st.title("Car Price Prediction App")
 
@@ -96,6 +97,7 @@ with tab2:
     
     with a1:
         city_select=st.selectbox("Select City",dropdown_options["city"])
+        city=encoder_city.transform(city_select)
     with a2:
         ft_select=st.selectbox("Select fuel Type",dropdown_options["ft"])
     with a3:
@@ -125,7 +127,7 @@ with tab2:
         
     if st.button('Predict'):
         input_data = pd.DataFrame([{
-            "city": city_select,
+            "city": city,
             "ft": ft_select,
             "bt": bt_select,
             "km": km,
@@ -140,7 +142,7 @@ with tab2:
             "Seats": Seats,
             "Engine Displacement": EngineDisplacement
         }])
-        categorical_cols=["city_select","ft_select","bt_select","transmission_select","oem_select","model_select","variantName_select","insurance_validity_select"]
+        categorical_cols=["ft_select","bt_select","transmission_select","oem_select","model_select","variantName_select","insurance_validity_select"]
         input_data[categorical_cols] = encoder.predict(input_data[categorical_cols])
         a=["km","ownerNo","modelYear","price","Registration Year","Seats","Engine Displacement"]
         input_data[a]=np.cos(input_data[a])
