@@ -33,8 +33,16 @@ def set_background_image_local(image_path):
 set_background_image_local(r"12.png")
 
 model=load_model("model_car.pkl")
-encoder=load_model("ordinal_encoder.pkl")
+
 encoder_city=load_model("encoder_city.pkl")
+encoder_Insurance_Validity=load_model("encoder_Insurance_Validity.pkl")
+encoder_bt=load_model("encoder_bt.pkl")
+encoder_ft=load_model("encoder_ft.pkl")
+encoder_oem=load_model("encoder_model.pkl")
+encoder_model=load_model("encoder_ft.pkl")
+encoder_transmission=load_model("encoder_transmission.pkl")
+encoder_variantName=load_model("encoder_variantName.pkl")
+
 ml_df=pd.read_excel("extracted_car_details.xlsx")
 st.title("Car Price Prediction App")
 
@@ -100,26 +108,33 @@ with tab2:
         city=encoder_city.transform([[city_select]])[0][0]
     with a2:
         ft_select=st.selectbox("Select fuel Type",dropdown_options["ft"])
+        ft=encoder_ft.transform([[ft_select]])[0][0]
     with a3:
         bt_select=st.selectbox("Select Body Type",dropdown_options["bt"])
+        bt=encoder_bt.transform([[bt_select]])[0][0]
     with a4:
         km=st.number_input("Enter KM driven",min_value=10)
     with a5:
         transmission_select=st.selectbox("Select Body Type",dropdown_options["transmission"])
+        transmission=encoder_transmission.transform([[transmission_select]])[0][0]
     with a6:
         ownerNo=st.number_input("Enter no. of Owner's",min_value=1)
     with a7:
         oem_select=st.selectbox("Select car manufacture name",dropdown_options["oem"])
+        oem=encoder_oem.transform([[oem_select]])[0][0]
     with a8: 
         model_select=st.selectbox("Select car Model name",dropdown_options["model"])
+        model=encoder_model.transform([[model_select]])[0][0]
     with a9:
         modelYear=st.number_input("Enter car manufacture year",min_value=1000)
     with a10:
         variantName_select=st.selectbox("Select Model variant Name",dropdown_options["variantName"])
+        variantName=encoder_variantName.transform([[variantName_select]])[0][0]
     with a11:
         Registration_Year=st.number_input("Enter car registration year",min_value=1000)
     with a12:
         InsuranceValidity_select=st.selectbox("Select Insurance Type",dropdown_options["Insurance Validity"])
+        InsuranceValidity=encoder_InsuranceValidity.transform([[InsuranceValidity_select]])[0][0]
     with a13:
         Seats=st.number_input("Enter seat capacity",min_value=1)
     with a14:
@@ -128,22 +143,21 @@ with tab2:
     if st.button('Predict'):
         input_data = pd.DataFrame([{
             "city": city,
-            "ft": ft_select,
-            "bt": bt_select,
+            "ft": ft,
+            "bt": bt,
             "km": km,
-            "transmission": transmission_select,
+            "transmission": transmission,
             "ownerNo": ownerNo,
-            "oem": oem_select,
-            "model": model_select,
+            "oem": oem,
+            "model": model,
             "modelYear": modelYear,
-            "variantName": variantName_select,
+            "variantName": variantName,
             "Registration Year": Registration_Year,
-            "Insurance Validity": InsuranceValidity_select,
+            "Insurance Validity": InsuranceValidity,
             "Seats": Seats,
             "Engine Displacement": EngineDisplacement
         }])
-        categorical_cols=["ft_select","bt_select","transmission_select","oem_select","model_select","variantName_select","insurance_validity_select"]
-        input_data[categorical_cols] = encoder.transform(input_data[categorical_cols])
+
         a=["km","ownerNo","modelYear","price","Registration Year","Seats","Engine Displacement"]
         input_data[a]=np.cos(input_data[a])
         prediction = model.predict(input_data)
