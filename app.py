@@ -34,7 +34,7 @@ def set_background_image_local(image_path):
 
 set_background_image_local(r"12.png")
 
-model=load_model("model_car.pkl")
+model_car=load_model("model_car.pkl")
 
 encoder_city=load_model("encoder_city.pkl")
 encoder_Insurance_Validity=load_model("encoder_Insurance_Validity.pkl")
@@ -161,7 +161,7 @@ with tab2:
         }])
 
         a=["km","ownerNo","modelYear","Registration Year","Seats","Engine Displacement"]
-        prediction = model.predict(input_data)
+        prediction = model_car.predict(input_data)
         
         st.subheader("Predicted Car Price")
         st.write(f"₹ {prediction[0]:,.2f}")
