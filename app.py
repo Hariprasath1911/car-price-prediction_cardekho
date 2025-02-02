@@ -162,7 +162,7 @@ with tab2:
 
         a=["km","ownerNo","modelYear","Registration Year","Seats","Engine Displacement"]
         for i in a:
-        input_data[i] = trans.fit_transform(input_data[[i]])
+            input_data[i] = trans.fit_transform(input_data[[i]])
         prediction = model_car.predict(input_data)
         
         st.subheader("Predicted Car Price")
