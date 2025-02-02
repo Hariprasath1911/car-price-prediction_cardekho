@@ -4,6 +4,8 @@ import numpy as np
 import pandas as pd
 import base64
 from sklearn.preprocessing import OrdinalEncoder
+from sklearn.preprocessing import RobustScaler
+trans = RobustScaler()
 
 @st.cache_resource
 # Load models
@@ -113,12 +115,14 @@ with tab2:
         bt_select=st.selectbox("Select Body Type",dropdown_options["bt"])
         bt=encoder_bt.transform([[bt_select]])[0][0]
     with a4:
-        km=st.number_input("Enter KM driven",min_value=10)
+        km_select=st.number_input("Enter KM driven",min_value=10)
+        km = trans.fit_transform(km_select)
     with a5:
         transmission_select=st.selectbox("Select Body Type",dropdown_options["transmission"])
         transmission=encoder_transmission.transform([[transmission_select]])[0][0]
     with a6:
-        ownerNo=st.number_input("Enter no. of Owner's",min_value=1)
+        ownerNo_select=st.number_input("Enter no. of Owner's",min_value=1)
+        ownerNo = trans.fit_transform(ownerNo_select)
     with a7:
         oem_select=st.selectbox("Select car manufacture name",dropdown_options["oem"])
         oem=encoder_oem.transform([[oem_select]])[0][0]
@@ -126,19 +130,23 @@ with tab2:
         model_select=st.selectbox("Select car Model name",dropdown_options["model"])
         model=encoder_model.transform([[model_select]])[0][0]
     with a9:
-        modelYear=st.number_input("Enter car manufacture year",min_value=1000)
+        modelYear_select=st.number_input("Enter car manufacture year",min_value=1000)
+        modelYear = trans.fit_transform(modelYear_select)
     with a10:
         variantName_select=st.selectbox("Select Model variant Name",dropdown_options["variantName"])
         variantName=encoder_variantName.transform([[variantName_select]])[0][0]
     with a11:
-        Registration_Year=st.number_input("Enter car registration year",min_value=1000)
+        Registration_Year_select=st.number_input("Enter car registration year",min_value=1000)
+        Registration_Year = trans.fit_transform(Registration_Year_select)
     with a12:
         InsuranceValidity_select=st.selectbox("Select Insurance Type",dropdown_options["Insurance Validity"])
         InsuranceValidity=encoder_Insurance_Validity.transform([[InsuranceValidity_select]])[0][0]
     with a13:
-        Seats=st.number_input("Enter seat capacity",min_value=1)
+        Seats_select=st.number_input("Enter seat capacity",min_value=1)
+        Seats = trans.fit_transform(Seats_select)
     with a14:
-        EngineDisplacement=st.number_input("Enter Engine CC",min_value=1)
+        EngineDisplacement_select=st.number_input("Enter Engine CC",min_value=1)
+        EngineDisplacement = trans.fit_transform(EngineDisplacement_select)
         
     if st.button('Predict'):
         input_data = pd.DataFrame([{
@@ -159,9 +167,6 @@ with tab2:
         }])
 
         a=["km","ownerNo","modelYear","Registration Year","Seats","Engine Displacement"]
-        from sklearn.preprocessing import RobustScaler
-        trans = RobustScaler()
-        input_data[a] = trans.fit_transform(input_data[[a]])
         prediction = model.predict(input_data)
         
         st.subheader("Predicted Car Price")
