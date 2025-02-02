@@ -128,12 +128,12 @@ with tab2:
         model_select=st.selectbox("Select car Model name",dropdown_options["model"])
         model=encoder_model.transform([[model_select]])[0][0]
     with a9:
-        modelYear=st.number_input("Enter car manufacture year",min_value=1000)
+        modelYear=st.number_input("Enter car manufacture year",min_value=1900)
     with a10:
         variantName_select=st.selectbox("Select Model variant Name",dropdown_options["variantName"])
         variantName=encoder_variantName.transform([[variantName_select]])[0][0]
     with a11:
-        Registration_Year=st.number_input("Enter car registration year",min_value=1000)
+        Registration_Year=st.number_input("Enter car registration year",min_value=1900)
     with a12:
         InsuranceValidity_select=st.selectbox("Select Insurance Type",dropdown_options["Insurance Validity"])
         InsuranceValidity=encoder_Insurance_Validity.transform([[InsuranceValidity_select]])[0][0]
@@ -161,6 +161,8 @@ with tab2:
         }])
 
         a=["km","ownerNo","modelYear","Registration Year","Seats","Engine Displacement"]
+        for i in a:
+        input_data[i] = trans.fit_transform(input_data[[i]])
         prediction = model_car.predict(input_data)
         
         st.subheader("Predicted Car Price")
