@@ -115,14 +115,12 @@ with tab2:
         bt_select=st.selectbox("Select Body Type",dropdown_options["bt"])
         bt=encoder_bt.transform([[bt_select]])[0][0]
     with a4:
-        km_select=st.number_input("Enter KM driven",min_value=10)
-        km = trans.fit_transform(km_select)
+        km=st.number_input("Enter KM driven",min_value=10)
     with a5:
         transmission_select=st.selectbox("Select Body Type",dropdown_options["transmission"])
         transmission=encoder_transmission.transform([[transmission_select]])[0][0]
     with a6:
-        ownerNo_select=st.number_input("Enter no. of Owner's",min_value=1)
-        ownerNo = trans.fit_transform(ownerNo_select)
+        ownerNo=st.number_input("Enter no. of Owner's",min_value=1)
     with a7:
         oem_select=st.selectbox("Select car manufacture name",dropdown_options["oem"])
         oem=encoder_oem.transform([[oem_select]])[0][0]
@@ -130,23 +128,19 @@ with tab2:
         model_select=st.selectbox("Select car Model name",dropdown_options["model"])
         model=encoder_model.transform([[model_select]])[0][0]
     with a9:
-        modelYear_select=st.number_input("Enter car manufacture year",min_value=1000)
-        modelYear = trans.fit_transform(modelYear_select)
+        modelYear=st.number_input("Enter car manufacture year",min_value=1000)
     with a10:
         variantName_select=st.selectbox("Select Model variant Name",dropdown_options["variantName"])
         variantName=encoder_variantName.transform([[variantName_select]])[0][0]
     with a11:
-        Registration_Year_select=st.number_input("Enter car registration year",min_value=1000)
-        Registration_Year = trans.fit_transform(Registration_Year_select)
+        Registration_Year=st.number_input("Enter car registration year",min_value=1000)
     with a12:
         InsuranceValidity_select=st.selectbox("Select Insurance Type",dropdown_options["Insurance Validity"])
         InsuranceValidity=encoder_Insurance_Validity.transform([[InsuranceValidity_select]])[0][0]
     with a13:
-        Seats_select=st.number_input("Enter seat capacity",min_value=1)
-        Seats = trans.fit_transform(Seats_select)
+        Seats=st.number_input("Enter seat capacity",min_value=1)
     with a14:
-        EngineDisplacement_select=st.number_input("Enter Engine CC",min_value=1)
-        EngineDisplacement = trans.fit_transform(EngineDisplacement_select)
+        EngineDisplacement=st.number_input("Enter Engine CC",min_value=1)
         
     if st.button('Predict'):
         input_data = pd.DataFrame([{
