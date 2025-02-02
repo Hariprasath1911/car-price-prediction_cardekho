@@ -164,6 +164,7 @@ with tab2:
         for i in a:
             input_data[i] = trans.fit_transform(input_data[[i]])
         prediction = model_car.predict(input_data)
+        prediction1=trans.inverse_transform(prediction.reshape(-1, 1))
         
         st.subheader("Predicted Car Price")
-        st.write(f"₹ {prediction[0]:,.2f}")
+        st.write(f"₹ {prediction1[0]:,.2f}")
