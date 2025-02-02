@@ -167,4 +167,4 @@ with tab2:
         prediction1=trans.inverse_transform(prediction.reshape(-1, 1))
         
         st.subheader("Predicted Car Price")
-        st.write(f"₹ {prediction1[0]:,.2f}")
+        st.write(f"₹ {prediction1:,.2f}")
