@@ -159,7 +159,9 @@ with tab2:
         }])
 
         a=["km","ownerNo","modelYear","Registration Year","Seats","Engine Displacement"]
-        input_data[a]=np.cos(input_data[a])
+        from sklearn.preprocessing import RobustScaler
+        trans = RobustScaler()
+        input_data[a] = trans.fit_transform(input_data[[a]])
         prediction = model.predict(input_data)
         
         st.subheader("Predicted Car Price")
