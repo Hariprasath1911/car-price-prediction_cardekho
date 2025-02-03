@@ -4,8 +4,7 @@ import numpy as np
 import pandas as pd
 import base64
 from sklearn.preprocessing import OrdinalEncoder
-from sklearn.preprocessing import RobustScaler
-trans = RobustScaler()
+
 
 @st.cache_resource
 # Load models
@@ -138,9 +137,9 @@ with tab2:
         InsuranceValidity_select=st.selectbox("Select Insurance Type",dropdown_options["Insurance Validity"])
         InsuranceValidity=encoder_Insurance_Validity.transform([[InsuranceValidity_select]])[0][0]
     with a13:
-        Seats=st.number_input("Enter seat capacity",min_value=1)
+        Seats=st.number_input("Enter seat capacity",min_value=4)
     with a14:
-        EngineDisplacement=st.number_input("Enter Engine CC",min_value=1)
+        EngineDisplacement=st.number_input("Enter Engine CC",min_value=799)
         
     if st.button('Predict'):
         input_data = pd.DataFrame([{
