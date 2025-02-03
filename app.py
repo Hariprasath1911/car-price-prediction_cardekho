@@ -147,7 +147,7 @@ with tab2:
         #a=["km","ownerNo","modelYear","Registration Year","Seats","Engine Displacement"]
         #for i in a:
             #input_data[i] = np.cos(input_data[[i]])
-        prediction = model_car.predict(input_data.values.reshape(1, -1))
+        prediction = model_car.predict(input_data)
                 
         st.subheader("Predicted Car Price")
         st.write(f"₹ {prediction}")
