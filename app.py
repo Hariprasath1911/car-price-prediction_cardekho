@@ -166,4 +166,4 @@ with tab2:
         prediction = model_car.predict(input_data)
                 
         st.subheader("Predicted Car Price")
-        st.write(f"₹ {prediction:,.2f}")
+        st.write(f"₹ {prediction,.2f}")
