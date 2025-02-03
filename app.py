@@ -131,8 +131,8 @@ with tab2:
         oem=np.cos(oem1)
     with a8: 
         model_select=st.selectbox("Select car Model name",dropdown_options["model"])
-        model=encoder_model.transform([[model_select]])[0][0]
-        model1=np.cos(model1)
+        model1=encoder_model.transform([[model_select]])[0][0]
+        model=np.cos(model1)
     with a9:
         modelYear=st.number_input("Enter car manufacture year",min_value=1900)
     with a10:
