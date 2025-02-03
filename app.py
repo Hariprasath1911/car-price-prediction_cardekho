@@ -142,22 +142,7 @@ with tab2:
         EngineDisplacement=st.number_input("Enter Engine CC",min_value=799)
         
     if st.button('Predict'):
-        input_data = pd.DataFrame([{
-            "city": city,
-            "ft": ft,
-            "bt": bt,
-            "km": km,
-            "transmission": transmission,
-            "ownerNo": ownerNo,
-            "oem": oem,
-            "model": model,
-            "modelYear": modelYear,
-            "variantName": variantName,
-            "Registration Year": Registration_Year,
-            "Insurance Validity": InsuranceValidity,
-            "Seats": Seats,
-            "Engine Displacement": EngineDisplacement
-        }])
+        input_data = np.array([city,ft,bt,km,transmission,ownerNo,oem,model,modelYear,variantName,Registration_Year,InsuranceValidity,Seats,EngineDisplacement])
 
         #a=["km","ownerNo","modelYear","Registration Year","Seats","Engine Displacement"]
         #for i in a:
