@@ -147,4 +147,4 @@ with tab2:
         prediction = model_car.predict(input_data.values.reshape(1, -1))
                 
         st.subheader("Predicted Car Price")
-        st.write(f"₹ {prediction}")
+        st.markdown(f"### :green[₹ {prediction[0]:,.2f}]")
