@@ -33,7 +33,7 @@ def set_background_image_local(image_path):
 
 set_background_image_local(r"12.png")
 
-model_car=load_model("carmodel1.pkl")
+model_car=load_model("carmodel.pkl")
 
 encoder_city=load_model("encoder_city.pkl")
 encoder_Insurance_Validity=load_model("encoder_Insurance_Validity.pkl")
@@ -106,45 +106,36 @@ with tab2:
     
     with a1:
         city_select=st.selectbox("Select City",dropdown_options["city"])
-        city1=encoder_city.transform([[city_select]])[0][0]
-        city=np.cos(city1)
-        
+        city=encoder_city.transform([[city_select]])[0][0]
     with a2:
         ft_select=st.selectbox("Select fuel Type",dropdown_options["ft"])
-        ft1=encoder_ft.transform([[ft_select]])[0][0]
-        ft=np.cos(ft1)
+        ft=encoder_ft.transform([[ft_select]])[0][0]
     with a3:
         bt_select=st.selectbox("Select Body Type",dropdown_options["bt"])
-        bt1=encoder_bt.transform([[bt_select]])[0][0]
-        bt=np.cos(bt1)
+        bt=encoder_bt.transform([[bt_select]])[0][0]
     with a4:
         km=st.number_input("Enter KM driven",min_value=10)
     with a5:
         transmission_select=st.selectbox("Select Body Type",dropdown_options["transmission"])
-        transmission1=encoder_transmission.transform([[transmission_select]])[0][0]
-        transmission=np.cos(transmission1)
+        transmission=encoder_transmission.transform([[transmission_select]])[0][0]
     with a6:
         ownerNo=st.number_input("Enter no. of Owner's",min_value=1)
     with a7:
         oem_select=st.selectbox("Select car manufacture name",dropdown_options["oem"])
-        oem1=encoder_oem.transform([[oem_select]])[0][0]
-        oem=np.cos(oem1)
+        oem=encoder_oem.transform([[oem_select]])[0][0]
     with a8: 
         model_select=st.selectbox("Select car Model name",dropdown_options["model"])
-        model1=encoder_model.transform([[model_select]])[0][0]
-        model=np.cos(model1)
+        model=encoder_model.transform([[model_select]])[0][0]
     with a9:
         modelYear=st.number_input("Enter car manufacture year",min_value=1900)
     with a10:
         variantName_select=st.selectbox("Select Model variant Name",dropdown_options["variantName"])
-        variantName1=encoder_variantName.transform([[variantName_select]])[0][0]
-        variantName=np.cos(variantName1)
+        variantName=encoder_variantName.transform([[variantName_select]])[0][0]
     with a11:
         Registration_Year=st.number_input("Enter car registration year",min_value=1900)
     with a12:
         InsuranceValidity_select=st.selectbox("Select Insurance Type",dropdown_options["Insurance Validity"])
-        InsuranceValidity1=encoder_Insurance_Validity.transform([[InsuranceValidity_select]])[0][0]
-        InsuranceValidity=np.cos(InsuranceValidity1)
+        InsuranceValidity=encoder_Insurance_Validity.transform([[InsuranceValidity_select]])[0][0]
     with a13:
         Seats=st.number_input("Enter seat capacity",min_value=4)
     with a14:
