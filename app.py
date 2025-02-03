@@ -160,9 +160,9 @@ with tab2:
             "Engine Displacement": EngineDisplacement
         }])
 
-        a=["km","ownerNo","modelYear","Registration Year","Seats","Engine Displacement"]
-        for i in a:
-            input_data[i] = np.cos(input_data[[i]])
+        #a=["km","ownerNo","modelYear","Registration Year","Seats","Engine Displacement"]
+        #for i in a:
+            #input_data[i] = np.cos(input_data[[i]])
         prediction = model_car.predict(input_data)
                 
         st.subheader("Predicted Car Price")
