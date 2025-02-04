@@ -33,7 +33,7 @@ def set_background_image_local(image_path):
 
 set_background_image_local(r"12.png")
 
-model_car=load_model("carmodel.pkl")
+model_car=load_model("final_carmodel.pkl")
 
 encoder_city=load_model("encoder_city.pkl")
 encoder_Insurance_Validity=load_model("encoder_Insurance_Validity.pkl")
@@ -67,12 +67,11 @@ with tab1:
                 
                 **3. Key Features**
                 User-Friendly Interface: Simple and interactive Streamlit-based UI.
-                Machine Learning Model: Utilizes an advanced regression model ( Random Forest) trained 
+                Machine Learning Model: Utilizes an advanced regression model (XGBRegressor) trained 
                 on a vast dataset of car prices.
                 Feature Inputs: Users can enter details like car brand, model, manufacturing year, fuel type, 
                 transmission, and other relevant attributes.
                 Real-Time Predictions: Provides instant car price estimates based on input parameters.
-                Data Visualization: Includes graphs and charts to show trends in car pricing.
                 Comparison Tool: Allows users to compare multiple cars for better decision-making.
                 
                 **4. Target Audience**
@@ -84,13 +83,11 @@ with tab1:
                 Frontend: Streamlit for an interactive and user-friendly web application.
                 Backend: Python with machine learning libraries such as Scikit-learn, XGBoost, and Pandas.
                 Model Deployment: Trained ML model integrated into the Streamlit app for real-time predictions.
-                Visualization: Matplotlib and Seaborn for trend analysis and price distribution.
                 
-                **6. Benefits**
-                Saves time by providing instant price predictions.
-                Eliminates guesswork in car pricing.
-                Empowers users with data-driven insights for negotiation.
-                Enhances transparency in the used car market.
+                **6. MLFlow**
+                In my project, I integrated MLflow to efficiently track and manage machine learning experiments within my Streamlit application. 
+                I used MLflow to log important details such as model parameters, performance metrics (like MSE, MAE, and R2),
+                and the trained models themselves. link: https://7a50-104-198-248-26.ngrok-free.app
                 
                 **7. Conclusion**
                 The Car Price Prediction App is a powerful tool for individuals and businesses looking to evaluate 
