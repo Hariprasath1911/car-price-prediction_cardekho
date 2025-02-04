@@ -113,7 +113,7 @@ with tab2:
     with a4:
         km=st.number_input("Enter KM driven",min_value=10)
     with a5:
-        transmission_select=st.selectbox("Select Body Type",dropdown_options["transmission"])
+        transmission_select=st.selectbox("Select Transmission",dropdown_options["transmission"])
         transmission=encoder_transmission.transform([[transmission_select]])[0][0]
     with a6:
         ownerNo=st.number_input("Enter no. of Owner's",min_value=1)
