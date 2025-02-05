@@ -121,14 +121,16 @@ with tab2:
         oem_select=st.selectbox("Select car manufacture name",dropdown_options["oem"])
         oem=encoder_oem.transform([[oem_select]])[0][0]
     with a8:
-        filter_model=ml_df[ml_df["oem"]==oem_select]["model"]
-        a=filter_model.unique().tolist()
-        model_select=st.selectbox("Select car Model name",a)
+        model_list=ml_df[ml_df["oem"]==oem_select]["model"]
+        model_filtered=model_list.unique().tolist()
+        model_select=st.selectbox("Select car Model name",model_filtered)
         model=encoder_model.transform([[model_select]])[0][0]
     with a9:
         modelYear=st.number_input("Enter car manufacture year",min_value=1900)
     with a10:
-        variantName_select=st.selectbox("Select Model variant Name",dropdown_options["variantName"])
+        variantName_list=ml_df[ml_df["model"]==model_select]["variantName"]
+        variantName_filtered=variantName_list.unique().tolist()
+        variantName_select=st.selectbox("Select Model variant Name",variantName_filtered)
         variantName=encoder_variantName.transform([[variantName_select]])[0][0]
     with a11:
         Registration_Year=st.number_input("Enter car registration year",min_value=1900)
