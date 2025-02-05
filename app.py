@@ -121,7 +121,8 @@ with tab2:
         oem_select=st.selectbox("Select car manufacture name",dropdown_options["oem"])
         oem=encoder_oem.transform([[oem_select]])[0][0]
     with a8:
-        model_select=st.selectbox("Select car Model name",dropdown_options["model"])
+        filter_model=ml_df[ml_df["oem"]==oem]["model"]
+        model_select=st.selectbox("Select car Model name",filter_model)
         model=encoder_model.transform([[model_select]])[0][0]
     with a9:
         modelYear=st.number_input("Enter car manufacture year",min_value=1900)
