@@ -121,7 +121,7 @@ with tab2:
         oem_select=st.selectbox("Select car manufacture name",dropdown_options["oem"])
         oem=encoder_oem.transform([[oem_select]])[0][0]
     with a8:
-        filter_model=ml_df[ml_df["oem"]==oem]["model"]
+        filter_model=ml_df[ml_df["oem"]==oem_select]["model"]
         a=filter_model.unique().tolist()
         model_select=st.selectbox("Select car Model name",a)
         model=encoder_model.transform([[model_select]])[0][0]
