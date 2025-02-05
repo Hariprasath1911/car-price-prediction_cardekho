@@ -118,7 +118,9 @@ with tab2:
     with a6:
         ownerNo=st.number_input("Enter no. of Owner's",min_value=1)
     with a7:
-        oem_select=st.selectbox("Select car manufacture name",dropdown_options["oem"])
+        oem_list=ml_df[ml_df["ft"]==ft_select]["oem"]
+        oem_filtered=oem_list.unique().tolist()
+        oem_select=st.selectbox("Select car manufacture name",oem_filtered)
         oem=encoder_oem.transform([[oem_select]])[0][0]
     with a8:
         model_list=ml_df[ml_df["oem"]==oem_select]["model"]
