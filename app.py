@@ -87,7 +87,7 @@ with tab1:
                 **6. MLFlow**
                 In my project, I integrated MLflow to efficiently track and manage machine learning experiments within my Streamlit application. 
                 I used MLflow to log important details such as model parameters, performance metrics (like MSE, MAE, and R2),
-                and the trained models themselves. link: https://7a50-104-198-248-26.ngrok-free.app
+                and the trained models themselves. link: http://127.0.0.1:5001
                 
                 **7. Conclusion**
                 The Car Price Prediction App is a powerful tool for individuals and businesses looking to evaluate 
