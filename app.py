@@ -152,7 +152,17 @@ with tab2:
         st.subheader("Predicted Car Price")
         st.markdown(f"### :green[₹ {prediction[0]:,.2f}]")
 with tab3:
-    elif option == "Chatbot":
+    @st.cache_data
+    def load_car_data():
+        return pd.read_excel(r"D:\streamlit\env\prj3\final_car_details.xlsx")
+
+    def get_car_details_by_brand(brand_name, df):
+        df = df.dropna(subset=['oem'])
+        filtered_cars = df[df['oem'].str.lower() == brand_name.lower()]
+        if filtered_cars.empty:
+            return [{"message": f"No cars found for brand: {brand_name}"}]
+        return filtered_cars.head(5)[['oem', 'model', 'price', 'Fuel Type', 'Transmission', 'Mileage']].to_dict('records')
+        elif option == "Chatbot":
     st.header("Car Chatbot Assistant 💬")
     df = load_car_data()
             
