@@ -153,8 +153,8 @@ with tab2:
         st.markdown(f"### :green[₹ {prediction[0]:,.2f}]")
 with tab3:
     import os
-    from langchain.chat_models import ChatGoogleGenerativeAI
     from langchain.schema import SystemMessage, HumanMessage, AIMessage
+    from langchain_google_genai import ChatGoogleGenerativeAI
     st.markdown("**Car Dealership Chatbot!**")
       # Define the chatbot's behavior
     api_key = os.getenv("GOOGLE_API_KEY")  # Set this in your environment or .streamlit/secrets.toml
