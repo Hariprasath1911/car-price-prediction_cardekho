@@ -154,7 +154,7 @@ with tab2:
 with tab3:
     @st.cache_data
     def load_car_data():
-        return pd.read_excel(r"D:\streamlit\env\prj3\final_car_details.xlsx")
+        return pd.read_excel(r"ml_dl.xlsx")
 
     def get_car_details_by_brand(brand_name, df):
         df = df.dropna(subset=['oem'])
@@ -162,17 +162,17 @@ with tab3:
         if filtered_cars.empty:
             return [{"message": f"No cars found for brand: {brand_name}"}]
         return filtered_cars.head(5)[['oem', 'model', 'price', 'Fuel Type', 'Transmission', 'Mileage']].to_dict('records')
-        elif option == "Chatbot":
-        st.header("Car Chatbot Assistant 💬")
-        df = load_car_data()
+    
+    st.header("Car Chatbot Assistant 💬")
+    df = load_car_data()
             
-        user_query = st.text_input("Ask me about cars!", "")
+    user_query = st.text_input("Ask me about cars!", "")
 
-        if user_query:
-                if "tell me about" in user_query.lower():
-                    brand_name = user_query.lower().replace("tell me about", "").strip()
-                    details = get_car_details_by_brand(brand_name, df)
-                    st.write("### Car Details")
-                    st.json(details)
-                else:
-                    st.write("I'm still learning to answer more queries!")
+    if user_query:
+            if "tell me about" in user_query.lower():
+                brand_name = user_query.lower().replace("tell me about", "").strip()
+                details = get_car_details_by_brand(brand_name, df)
+                st.write("### Car Details")
+                st.json(details)
+            else:
+                st.write("I'm still learning to answer more queries!")
