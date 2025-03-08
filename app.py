@@ -50,7 +50,7 @@ st.title("Car Price Prediction App")
 categorical_features = ["city", "ft", "bt", "transmission", "oem", "model", "variantName", "Insurance Validity"]
 dropdown_options = {feature: ml_df[feature].unique().tolist() for feature in categorical_features}
 
-tab1, tab2,tab3 = st.tabs(["Home", "Predict","ChatBot])
+tab1, tab2,tab3 = st.tabs(["Home", "Predict","ChatBot"])
 with tab1:
     st.markdown("""
                 **1. Introduction**
