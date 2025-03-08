@@ -3,3 +3,4 @@ streamlit
 openpyxl
 xgboost
 langchain
+langchain langchain-google-genai
