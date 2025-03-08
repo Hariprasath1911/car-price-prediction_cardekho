@@ -2,5 +2,4 @@ scikit-learn
 streamlit
 openpyxl
 xgboost
-langchain
-langchain langchain-google-genai
+langchain==0.1.7
