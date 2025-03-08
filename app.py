@@ -161,7 +161,7 @@ with tab3:
         filtered_cars = df[df['oem'].str.lower() == brand_name.lower()]
         if filtered_cars.empty:
             return [{"message": f"No cars found for brand: {brand_name}"}]
-        return filtered_cars.head(5)[['oem', 'model', 'price', 'Fuel Type', 'Transmission', 'Mileage']].to_dict('records')
+        return filtered_cars.head(5)[['oem', 'model', 'price', 'ft', 'transmission']].to_dict('records')
     
     st.header("Car Chatbot Assistant 💬")
     df = load_car_data()
