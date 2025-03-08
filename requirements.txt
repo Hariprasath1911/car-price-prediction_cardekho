@@ -2,4 +2,3 @@ scikit-learn
 streamlit
 openpyxl
 xgboost
-langchain==0.1.7
