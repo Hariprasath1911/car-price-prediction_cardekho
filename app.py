@@ -152,50 +152,17 @@ with tab2:
         st.subheader("Predicted Car Price")
         st.markdown(f"### :green[₹ {prediction[0]:,.2f}]")
 with tab3:
-    import os
-    from langchain.schema import SystemMessage, HumanMessage, AIMessage
-    from langchain_google_genai import ChatGoogleGenerativeAI
-    st.markdown("**Car Dealership Chatbot!**")
-      # Define the chatbot's behavior
-    api_key = os.getenv("GOOGLE_API_KEY")  # Set this in your environment or .streamlit/secrets.toml
-    if not api_key:
-        st.error("API key not found. Please set your Google API key.")
-        st.stop()
+    elif option == "Chatbot":
+    st.header("Car Chatbot Assistant 💬")
+    df = load_car_data()
+            
+    user_query = st.text_input("Ask me about cars!", "")
 
-    # Instantiate the chat model
-    llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", api_key=api_key)
-
-    # Streamlit UI
-    st.title("🚗 Car Dealership Chatbot")
-    st.markdown("**Ask me anything about car models, pricing, and financing options!**")
-
-    # Chat history
-    if "messages" not in st.session_state:
-        st.session_state["messages"] = [
-            SystemMessage(content="You are a helpful assistant at a car dealership. "
-                                  "You provide information about car models, pricing, and financing options. "
-                                  "Be friendly and informative.")
-        ]
-
-    # Display previous chat messages
-    for message in st.session_state["messages"]:
-        role = "user" if isinstance(message, HumanMessage) else "assistant"
-        with st.chat_message(role):
-            st.markdown(message.content)
-
-    # User input
-    user_input = st.chat_input("Ask me a question...")
-    if user_input:
-        st.session_state["messages"].append(HumanMessage(content=user_input))
-    
-        with st.chat_message("user"):
-            st.markdown(user_input)
-
-        # Get response from chatbot
-        response = llm.invoke(user_input)
-
-        with st.chat_message("assistant"):
-            st.markdown(response.content)
-
-        # Store assistant response
-        st.session_state["messages"].append(AIMessage(content=response.content))
+    if user_query:
+                if "tell me about" in user_query.lower():
+                    brand_name = user_query.lower().replace("tell me about", "").strip()
+                    details = get_car_details_by_brand(brand_name, df)
+                    st.write("### Car Details")
+                    st.json(details)
+                else:
+                    st.write("I'm still learning to answer more queries!")
