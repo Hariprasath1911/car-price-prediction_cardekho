@@ -152,49 +152,50 @@ with tab2:
         st.subheader("Predicted Car Price")
         st.markdown(f"### :green[₹ {prediction[0]:,.2f}]")
 with tab3:
+    import os
     from langchain.chat_models import ChatGoogleGenerativeAI
     from langchain.schema import SystemMessage, HumanMessage, AIMessage
     st.markdown("**Car Dealership Chatbot!**")
       # Define the chatbot's behavior
-    car_dealership_prompt = ChatPromptTemplate.from_messages(
-        [
-            ("system", "You are a helpful assistant at a car dealership. "
-                         "You can provide information about car models, pricing, and financing options. "
-                         "Be friendly and informative."),
-            ("placeholder", "{messages}"),
-        ]
-    )
+    api_key = os.getenv("GOOGLE_API_KEY")  # Set this in your environment or .streamlit/secrets.toml
+    if not api_key:
+        st.error("API key not found. Please set your Google API key.")
+        st.stop()
 
     # Instantiate the chat model
-    llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", api_key="AIzaSyBpufebS9kziyw2coPefRL0wtXDs5wKbjM")
+    llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", api_key=api_key)
 
     # Streamlit UI
     st.title("🚗 Car Dealership Chatbot")
-    st.write("Ask me anything about car models, pricing, and financing options!")
+    st.markdown("**Ask me anything about car models, pricing, and financing options!**")
 
     # Chat history
     if "messages" not in st.session_state:
-       st.session_state["messages"] = []
+        st.session_state["messages"] = [
+            SystemMessage(content="You are a helpful assistant at a car dealership. "
+                                  "You provide information about car models, pricing, and financing options. "
+                                  "Be friendly and informative.")
+        ]
 
     # Display previous chat messages
     for message in st.session_state["messages"]:
-        with st.chat_message(message["role"]):
-            st.markdown(message["content"])
+        role = "user" if isinstance(message, HumanMessage) else "assistant"
+        with st.chat_message(role):
+            st.markdown(message.content)
 
     # User input
     user_input = st.chat_input("Ask me a question...")
     if user_input:
-        st.session_state["messages"].append({"role": "user", "content": user_input})
+        st.session_state["messages"].append(HumanMessage(content=user_input))
     
         with st.chat_message("user"):
             st.markdown(user_input)
-    
+
         # Get response from chatbot
-        messages = [{"role": msg["role"], "content": msg["content"]} for msg in st.session_state["messages"]]
-        response = llm.invoke(messages)
-    
+        response = llm.invoke(user_input)
+
         with st.chat_message("assistant"):
             st.markdown(response.content)
-    
-       # Store assistant response
-        st.session_state["messages"].append({"role": "assistant", "content": response.content})
+
+        # Store assistant response
+        st.session_state["messages"].append(AIMessage(content=response.content))
