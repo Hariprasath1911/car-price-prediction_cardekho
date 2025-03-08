@@ -152,6 +152,8 @@ with tab2:
         st.subheader("Predicted Car Price")
         st.markdown(f"### :green[₹ {prediction[0]:,.2f}]")
 with tab3:
+    from langchain.chat_models import ChatGoogleGenerativeAI
+    from langchain.schema import SystemMessage, HumanMessage, AIMessage
     st.markdown("**Car Dealership Chatbot!**")
       # Define the chatbot's behavior
     car_dealership_prompt = ChatPromptTemplate.from_messages(
