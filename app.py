@@ -50,7 +50,7 @@ st.title("Car Price Prediction App")
 categorical_features = ["city", "ft", "bt", "transmission", "oem", "model", "variantName", "Insurance Validity"]
 dropdown_options = {feature: ml_df[feature].unique().tolist() for feature in categorical_features}
 
-tab1, tab2 = st.tabs(["Home", "Predict"])
+tab1, tab2,tab3 = st.tabs(["Home", "Predict","ChatBot])
 with tab1:
     st.markdown("""
                 **1. Introduction**
@@ -151,3 +151,48 @@ with tab2:
                 
         st.subheader("Predicted Car Price")
         st.markdown(f"### :green[₹ {prediction[0]:,.2f}]")
+with tab3:
+    st.markdown("**Car Dealership Chatbot!**")
+      # Define the chatbot's behavior
+    car_dealership_prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system", "You are a helpful assistant at a car dealership. "
+                         "You can provide information about car models, pricing, and financing options. "
+                         "Be friendly and informative."),
+            ("placeholder", "{messages}"),
+        ]
+    )
+
+    # Instantiate the chat model
+    llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", api_key="AIzaSyBpufebS9kziyw2coPefRL0wtXDs5wKbjM")
+
+    # Streamlit UI
+    st.title("🚗 Car Dealership Chatbot")
+    st.write("Ask me anything about car models, pricing, and financing options!")
+
+    # Chat history
+    if "messages" not in st.session_state:
+       st.session_state["messages"] = []
+
+    # Display previous chat messages
+    for message in st.session_state["messages"]:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+
+    # User input
+    user_input = st.chat_input("Ask me a question...")
+    if user_input:
+        st.session_state["messages"].append({"role": "user", "content": user_input})
+    
+        with st.chat_message("user"):
+            st.markdown(user_input)
+    
+        # Get response from chatbot
+        messages = [{"role": msg["role"], "content": msg["content"]} for msg in st.session_state["messages"]]
+        response = llm.invoke(messages)
+    
+        with st.chat_message("assistant"):
+            st.markdown(response.content)
+    
+       # Store assistant response
+        st.session_state["messages"].append({"role": "assistant", "content": response.content})
