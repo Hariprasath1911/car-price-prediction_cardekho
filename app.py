@@ -162,7 +162,7 @@ with tab3:
             if filtered_cars.empty:
                 return [{"message": f"No cars found for brand: {brand_name}"}]
             return filtered_cars.head(5)[['oem', 'model', 'price', 'ft', 'transmission']].to_dict('records')
-        elif brand_name in df['model']unique().tolist():
+        elif brand_name in df['model'].unique().tolist():
             filtered_cars = df[df['model'].str.lower() == brand_name.lower()]
             if filtered_cars.empty:
                 return [{"message": f"No cars found for brand: {brand_name}"}]
