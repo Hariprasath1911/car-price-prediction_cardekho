@@ -5,7 +5,6 @@ import pandas as pd
 import base64
 from sklearn.preprocessing import OrdinalEncoder
 
-
 @st.cache_resource
 # Load models
 def load_model(model_path):
@@ -173,6 +172,6 @@ with tab3:
                 brand_name = user_query.lower().replace("tell me about", "").strip()
                 details = get_car_details_by_brand(brand_name, df)
                 st.write("### Car Details")
-                st.json(details)
+                st.write(d for d in details)
             else:
                 st.write("I'm still learning to answer more queries!")
