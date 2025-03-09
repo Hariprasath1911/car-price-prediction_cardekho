@@ -199,7 +199,7 @@ with tab3:
     if user_query:
             if "tell me about" in user_query.lower():
                 brand_name = user_query.lower().replace("tell me about", "").strip()
-                details = get_car_details_by_brand(brand_name, df)
+                details = get_car_details_by_brand_or_model(brand_name, df)
                 st.write("### Car Details")
                 st.write(details)
             else:
