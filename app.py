@@ -201,6 +201,15 @@ with tab3:
                 brand_name = user_query.lower().replace("tell me about", "").strip()
                 details = get_car_details_by_brand_or_model(brand_name, df)
                 st.write("### Car Details")
-                st.write(d for d in details)
+                if "results" in details and details["results"]:
+                    for car in details["results"]:
+                        st.write(f"**Brand:** {car['oem']}")
+                        st.write(f"**Model:** {car['model']}")
+                        st.write(f"**Price:** {car['price']}")
+                        st.write(f"**Fuel Type:** {car['ft']}")
+                        st.write(f"**Transmission:** {car['transmission']}")
+                        st.write("---")  # Separator for readability
+                    else:
+                        st.write(details["No Car Found!I'm still learning to answer more queries!"])
             else:
                 st.write("I'm still learning to answer more queries!")
