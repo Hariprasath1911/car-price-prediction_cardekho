@@ -177,6 +177,6 @@ with tab3:
                 brand_name = user_query.lower().replace("tell me about", "").strip()
                 details = get_car_details_by_brand(brand_name, df)
                 st.write("### Car Details")
-                st.write(d for d in details)
+                st.write(details)
             else:
                 st.write("I'm still learning to answer more queries!")
