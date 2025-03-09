@@ -178,19 +178,6 @@ with tab3:
 
         return [{"message": f"No cars found for brand or model: {name}"}]
 
-
-    #def get_car_details_by_brand(brand_name, df):
-     #   if brand_name in df['oem'].unique().tolist():
-      #      df = df.dropna(subset=['oem'])
-       #     filtered_cars = df[df['oem'].str.lower() == brand_name.lower()]
-        #    if filtered_cars.empty:
-         #       return [{"message": f"No cars found for brand: {brand_name}"}]
-          #  return filtered_cars.head(5)[['oem', 'model', 'price', 'ft', 'transmission']].to_dict('records')
-        #elif brand_name in df['model'].unique().tolist():
-         #   filtered_cars = df[df['model'].str.lower() == brand_name.lower()]
-          #  if filtered_cars.empty:
-           #     return [{"message": f"No cars found for brand: {brand_name}"}]
-            #return filtered_cars.head(5)[['oem', 'model', 'price', 'ft', 'transmission']].to_dict('records')
     st.header("Car Chatbot Assistant 💬")
     df = load_car_data()
             
