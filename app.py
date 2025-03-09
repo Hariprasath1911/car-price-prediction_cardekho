@@ -154,19 +154,33 @@ with tab3:
     @st.cache_data
     def load_car_data():
         return pd.read_excel(r"ml_dl.xlsx")
-
     def get_car_details_by_brand(brand_name, df):
-        if brand_name in df['oem'].unique().tolist():
-            df = df.dropna(subset=['oem'])
-            filtered_cars = df[df['oem'].str.lower() == brand_name.lower()]
-            if filtered_cars.empty:
-                return [{"message": f"No cars found for brand: {brand_name}"}]
-            return filtered_cars.head(5)[['oem', 'model', 'price', 'ft', 'transmission']].to_dict('records')
-        elif brand_name in df['model'].unique().tolist():
-            filtered_cars = df[df['model'].str.lower() == brand_name.lower()]
-            if filtered_cars.empty:
-                return [{"message": f"No cars found for brand: {brand_name}"}]
-            return filtered_cars.head(5)[['oem', 'model', 'price', 'ft', 'transmission']].to_dict('records')
+    df = df.dropna(subset=['oem'])  # Ensure 'oem' has no NaN values
+    
+    # Normalize case for comparison
+    brand_name_lower = brand_name.lower()
+    df['oem'] = df['oem'].str.lower()
+    
+    if brand_name_lower in df['oem'].unique():
+        filtered_cars = df[df['oem'] == brand_name_lower]
+        if filtered_cars.empty:
+            return [{"message": f"No cars found for brand: {brand_name}"}]
+        return filtered_cars.head(5)[['oem', 'model', 'price', 'ft', 'transmission']].to_dict('records')
+
+    return [{"message": f"No cars found for brand: {brand_name}"}]
+
+    #def get_car_details_by_brand(brand_name, df):
+     #   if brand_name in df['oem'].unique().tolist():
+      #      df = df.dropna(subset=['oem'])
+       #     filtered_cars = df[df['oem'].str.lower() == brand_name.lower()]
+        #    if filtered_cars.empty:
+         #       return [{"message": f"No cars found for brand: {brand_name}"}]
+          #  return filtered_cars.head(5)[['oem', 'model', 'price', 'ft', 'transmission']].to_dict('records')
+        #elif brand_name in df['model'].unique().tolist():
+         #   filtered_cars = df[df['model'].str.lower() == brand_name.lower()]
+          #  if filtered_cars.empty:
+           #     return [{"message": f"No cars found for brand: {brand_name}"}]
+            #return filtered_cars.head(5)[['oem', 'model', 'price', 'ft', 'transmission']].to_dict('records')
     st.header("Car Chatbot Assistant 💬")
     df = load_car_data()
             
