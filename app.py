@@ -154,20 +154,30 @@ with tab3:
     @st.cache_data
     def load_car_data():
         return pd.read_excel(r"ml_dl.xlsx")
-    def get_car_details_by_brand(brand_name, df):
-        df = df.dropna(subset=['oem'])  # Ensure 'oem' has no NaN values
-    
-    # Normalize case for comparison
-        brand_name_lower = brand_name.lower()
+    def get_car_details_by_brand_or_model(name, df):
+        df = df.dropna(subset=['oem', 'model'])  # Ensure 'oem' and 'model' have no NaN values
+
+        # Normalize case for comparison
+        name_lower = name.lower()
         df['oem'] = df['oem'].str.lower()
-    
-        if brand_name_lower in df['oem'].unique():
-            filtered_cars = df[df['oem'] == brand_name_lower]
+        df['model'] = df['model'].str.lower()
+
+        # Check if name matches an OEM (brand)
+        if name_lower in df['oem'].unique():
+            filtered_cars = df[df['oem'] == name_lower]
             if filtered_cars.empty:
-                return [{"message": f"No cars found for brand: {brand_name}"}]
+                return [{"message": f"No cars found for brand: {name}"}]
             return filtered_cars.head(5)[['oem', 'model', 'price', 'ft', 'transmission']].to_dict('records')
 
-        return [{"message": f"No cars found for brand: {brand_name}"}]
+        # Check if name matches a model
+        elif name_lower in df['model'].unique():
+            filtered_cars = df[df['model'] == name_lower]
+            if filtered_cars.empty:
+                return [{"message": f"No cars found for model: {name}"}]
+            return filtered_cars.head(5)[['oem', 'model', 'price', 'ft', 'transmission']].to_dict('records')
+
+        return [{"message": f"No cars found for brand or model: {name}"}]
+
 
     #def get_car_details_by_brand(brand_name, df):
      #   if brand_name in df['oem'].unique().tolist():
