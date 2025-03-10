@@ -149,6 +149,7 @@ with tab2:
         prediction = model_car.predict(input_data.values.reshape(1, -1))
                 
         st.subheader("Predicted Car Price")
+        st.snow()
         st.markdown(f"### :green[₹ {prediction[0]:,.2f}]")
 with tab3:
     @st.cache_data
